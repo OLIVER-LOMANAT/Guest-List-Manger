@@ -1,0 +1,65 @@
+.container {
+max-width: 500px;
+margin: 0 auto;
+padding: 20px;
+font-family: Arial, sans-serif;
+}
+#guest {
+width: 100%;
+padding: 8px;
+margin-bottom: 10px;
+box-sizing: border-box;
+}
+.add-btn {
+padding: 8px 16px;
+background-color: #4CAF50;
+color: white;
+border: none;
+cursor: pointer;
+}
+.add-btn:hover {
+background-color: #45a049;
+}
+#displayer {
+margin-top: 20px;
+}
+.guest-list {
+display: flex;
+justify-content: space-between; 
+align-items: center;
+padding: 10px;
+border: 1px solid #ddd;
+margin-bottom: 5px;
+}
+.guestName {
+flex-grow: 1;
+font-weight: bold;
+}
+.buttons {
+display: flex;
+gap: 10px; 
+}
+.edit-btn {
+padding: 5px 10px;
+margin: 0 5px;
+background-color: #2e23c7;
+color: white;
+border: none;
+cursor: pointer;
+}
+.delete-btn {
+padding: 5px 10px;
+background-color: #f44336;
+color: white;
+border: none;
+cursor: pointer;
+}
+.delete-btn:hover {
+background-color: #d32f2f;
+}
+.empty-message {
+color: #666;
+font-style: italic;
+text-align: center;
+padding: 20px;
+}
