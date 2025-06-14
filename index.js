@@ -16,9 +16,15 @@ form.addEventListener('submit',(e) => {
     return;
     }
 
+    if(guests.length === 10){
+        alert("Guests are above Maximum Requirement")
+        return;
+    }
+
     guests.push({
     id: Date.now(),
-    guest: guestText
+    guest: guestText,
+    attending: false
     });
 
     localStorage.setItem('guests', JSON.stringify(guests));
@@ -28,20 +34,14 @@ form.addEventListener('submit',(e) => {
 
 });
 
-guestInput.addEventListener('keypress', function(e) {
-if (e.key === 'Enter') {
-addGuest();
-}
-});
-
 function editButton(id) {
     const guest = guests.find(guest => guest.id === id)
 
     if (!guest)return;
     const newGuestName = prompt("Enter new Guest Name;", guest.guest)
     if (newGuestName && newGuestName.trim() !== '') {
-        guest.guest = newGuestName
-        localStorage.setItem('guests', JSON.stringify(guest))
+        guest.guest = newGuestName.trim()
+        localStorage.setItem('guests', JSON.stringify(guests));
         renderGuest()
     }
 }
@@ -50,6 +50,16 @@ function deleteGuest(id) {
 guests = guests.filter(guest => guest.id !== id);
 localStorage.setItem('guests', JSON.stringify(guests));
 renderGuest();
+}
+
+function toggleRSVP(id) {
+    const guest = guests.find(guest => guest.id === id);
+    if (!guest) return;
+
+    guest.attending = !guest.attending
+
+    localStorage.setItem('guests', JSON.stringify(guests))
+    renderGuest()
 }
 
 function renderGuest() {
@@ -66,18 +76,25 @@ guestElement.className = 'guest-list';
 guestElement.innerHTML = `
     <span id="guestName">${guest.guest}</span>
     <div class="buttons">
+    <button class="toggle-rsvp-btn" data-id="${guest.id}">Status:${guest.attending ? 'attending' : 'not Attending'}</button>
     <button class="delete-btn" data-id="${guest.id}">Delete</button>
-    <button class="edit-btn" id="edit-btn">Edit</button>
+    <button class="edit-btn" id="edit-btn" data-id="${guest.id}">Edit</button>
     </div>
 `;
 displayer.appendChild(guestElement);
 
 });
 
+  document.querySelectorAll('.toggle-rsvp-btn').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const id = Number(e.target.getAttribute('data-id'));
+      toggleRSVP(id);
+    });
+  });
 document.querySelectorAll('.edit-btn').forEach((button) => {
     button.addEventListener('click', (e) => {
         const id = Number(e.target.getAttribute('data-id'))
-        editGuest(id);
+        editButton(id);
     })
 })
 

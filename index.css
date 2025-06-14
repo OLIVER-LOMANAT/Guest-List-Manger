@@ -57,6 +57,18 @@ cursor: pointer;
 .delete-btn:hover {
 background-color: #d32f2f;
 }
+.toggle-rsvp-btn {
+padding: 5px 10px;
+background-color: #36f44f;
+color: black;
+border: none;
+cursor: pointer;
+transition: background 0.2 ease-in-out;
+}
+.toggle-rsvp-btn:hover{
+    background-color: black;
+    color: white;
+}
 .empty-message {
 color: #666;
 font-style: italic;
