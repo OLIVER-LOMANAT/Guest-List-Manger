@@ -5,7 +5,7 @@ const displayer = document.getElementById('displayer');
 let guests = JSON.parse(localStorage.getItem('guests')) || [];
 
 renderGuest();
-
+// Submits the user input
 form.addEventListener('submit',(e) => {
     e.preventDefault()
   
@@ -33,7 +33,7 @@ form.addEventListener('submit',(e) => {
 
 
 });
-
+// Edits the guest name
 function editButton(id) {
     const guest = guests.find(guest => guest.id === id)
 
@@ -45,13 +45,13 @@ function editButton(id) {
         renderGuest()
     }
 }
-
+// Deleteing the guest fro the list
 function deleteGuest(id) {
 guests = guests.filter(guest => guest.id !== id);
 localStorage.setItem('guests', JSON.stringify(guests));
 renderGuest();
 }
-
+// Toggle function for checking attendance
 function toggleRSVP(id) {
     const guest = guests.find(guest => guest.id === id);
     if (!guest) return;
@@ -61,7 +61,7 @@ function toggleRSVP(id) {
     localStorage.setItem('guests', JSON.stringify(guests))
     renderGuest()
 }
-
+// The renderGuest it executes the Guest arrengement and diplaying
 function renderGuest() {
 displayer.innerHTML = '';
 
@@ -69,7 +69,7 @@ if(guests.length === 0) {
 displayer.innerHTML = '<div class="empty-message">No guests yet. Add your first Guest!</div>';
 return;
 }
-
+// Creating the HTML Dynamicaly
 guests.forEach((guest) => {
 const guestElement = document.createElement('div');
 guestElement.className = 'guest-list';
@@ -84,20 +84,22 @@ guestElement.innerHTML = `
 displayer.appendChild(guestElement);
 
 });
-
+// Button for Toggle-RSVP 
   document.querySelectorAll('.toggle-rsvp-btn').forEach((button) => {
     button.addEventListener('click', (e) => {
       const id = Number(e.target.getAttribute('data-id'));
       toggleRSVP(id);
     });
   });
+
+// Button for Editing the guest name
 document.querySelectorAll('.edit-btn').forEach((button) => {
     button.addEventListener('click', (e) => {
         const id = Number(e.target.getAttribute('data-id'))
         editButton(id);
     })
 })
-
+// Button for Deleting Guest
 document.querySelectorAll('.delete-btn').forEach((button) => {
 button.addEventListener('click', (e) => {
     const id = Number(e.target.getAttribute('data-id'));
